@@ -1,0 +1,17 @@
+{
+  "name": "revealjs-template",
+  "version": "0.0.1",
+  "author": "",
+  "description": "This is a simple template project to create slide presentations with reveal.js",
+  "main": "index.html",
+  "keywords": [
+    "reveal.js",
+    "template",
+    "slides"
+  ],
+  "license": "WTFPL",
+  "dependencies": {
+    "reveal.js": "~3.4.1",
+    "highlightjs": "9.10.0"
+  }
+}

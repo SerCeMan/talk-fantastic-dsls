@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Fantastic DSLs</title>
+    <meta name="description" content="replace this description">
+    <meta name="author" content="put your name here">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <!-- Base styles -->
+    <link rel="stylesheet" href="components/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="css/build/theme.css" id="theme">
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="components/reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script type="text/javascript">
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ?
+            'components/reveal.js/css/print/pdf.css' :
+            'components/reveal.js/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <script src="components/highlightjs/highlight.pack.js"></script>
+    <!--[if lt IE 9]>
+    <script src="components/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+        td {
+            padding: 0 !important;
+        }
+
+        code {
+            width: 100%;
+            max-height: 600px !important;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section data-background-image="img/1.jpg">
+            <div style="font-size: 110px; font-family: Harry P, fantasy">
+                <p>Fantastic<p>
+                <p style="font-size: 180px">DSLs<p>
+                <p>and where to find them</p>
+            </div>
+        </section>
+
+        <section>
+            <style>
+                img {
+                    background: none !important;
+                    border: 0 !important;
+                }
+            </style>
+            <p style="text-align: left; margin-left: 100px">
+                <img src="img/jetbrains.svg" height="300px">
+                <img src="img/canva.png" height="300px">
+
+                <br><a href="http://serce.me">http://serce.me</a>
+                <br><a href="http://github.com/SerCeMan">GitHub @SerCeMan</a>
+                <br><a href="http://twitter.com/SerCeMan">Twitter @SerCeMan</a>
+                <br><img src="img/kotlin.png" height="100px">
+            </p>
+        </section>
+
+        <section>
+            <h2>Extension functions</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
+@@include('ext1/f1.kt')
+                        </code></pre>
+                        <pre><code class="kotlin hljs" data-trim>
+@@include('ext1/f2.kt')
+                        </code></pre>
+                    </td>
+                    <td class="code">
+                        <pre><code class="java hljs" data-trim>
+@@include('ext1/f3.jv')
+                        </code></pre>
+                    </td>
+                </tr>
+            </table>
+
+        </section>
+
+
+        <section>
+            <h2>Extension functions</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+@@include('ext2/f1.kts')
+                        </code></pre>
+                    </td>
+                    <td class="code">
+                        <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
+@@include('ext2/f2.jv')
+                        </code></pre>
+                    </td>
+                </tr>
+            </table>
+
+        </section>
+
+
+        <section style="padding: 0">
+            <h2>Extension functions</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre><code class="kotlin hljs" data-trim>
+@@include('ext3/f1.kts')
+                        </code></pre>
+                    </td>
+                    <td class="code">
+                        <pre><code class="java hljs" data-trim>
+@@include('ext3/f2.jv')
+                        </code></pre>
+                    </td>
+                </tr>
+            </table>
+
+        </section>
+
+        <section>
+            <h2>HTML</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+@@include('html/f1.kts')
+</code></pre>
+        </section>
+
+
+        <section>
+            <h2>Persistent data structures</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
+            </code></pre>
+        </section>
+
+
+        <section>
+            <h2>Domain</h2>
+            <img style="border: 0 !important;" width="600px" src="img/domain.svg">
+        </section>
+
+
+        <section>
+            <h2>Data classes</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
+@@include('domain/data1.kt')
+                        </code></pre>
+                        <pre><code class="kotlin hljs" data-trim>
+@@include('domain/data2.kt')
+                        </code></pre>
+                    </td>
+                    <td class="code">
+                        <pre><code class="kotlin hljs" data-trim>
+@@include('domain/data3.kt')
+                        </code></pre>
+                        <pre><code class="kotlin hljs" data-trim>
+@@include('domain/data4.kt')
+                        </code></pre>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+
+        <section>
+            <h2>Persistent DS</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
+@@include('domain/clj1.kt')
+                        </code></pre>
+                    </td>
+                    <td class="code">
+                        <pre><code class="kotlin hljs" data-trim>
+@@include('domain/clj2.kt')
+                        </code></pre>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+
+
+        <section>
+            <h2>Extension function on generic types</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+fun Collection&lt;Int&gt;.toIntArray(): IntArray {
+  val result = IntArray(size)
+  var index = 0
+  for (element in this)
+    result[index++] = element
+  return result
+}
+            </code></pre>
+        </section>
+
+
+        <section data-background-image="img/niffler.jpg">
+            <h2>Delegates</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+@@include('del/f1.kts')
+                        </code></pre>x
+                    </td>
+                    <td class="code">
+                        <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
+@@include('del/f2.jv')
+                        </code></pre>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+    </div>
+
+</div>
+
+<!-- u can't touch this -->
+<script type="text/javascript" src="components/reveal.js/lib/js/head.min.js"></script>
+<script type="text/javascript" src="components/reveal.js/js/reveal.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<!-- u can't touch this -->
+
+</body>
+</html>

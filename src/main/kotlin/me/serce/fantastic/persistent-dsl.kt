@@ -3,42 +3,49 @@ package me.serce.fantastic
 import me.serce.fantastic.impl.*
 
 
-interface Guys
-val <F> Cursor<Guys, F>.alex by Node<Person>()
-val <F> Cursor<Guys, F>.tristan by Node<Person>()
+interface Transaction
+val <F> Cursor<Transaction, F>.person by Node<Person>()
+val <F> Cursor<Transaction, F>.payment by Node<Payment>()
 
 interface Person
-val <F> Cursor<Person, F>.age by Leaf<Int>()
+val <F> Cursor<Person, F>.id by Leaf<Int>()
 val <F> Cursor<Person, F>.name by Leaf<String>()
+
+interface Payment
+val <F> Cursor<Payment, F>.currency by Leaf<String>()
+val <F> Cursor<Payment, F>.amount by Leaf<Int>()
 
 
 
 
 private fun buildModel() {
-  val model = Domain<Guys>()
+  val model = Domain<Transaction>()
   val model1 = model.cursor.update {
-    alex.age.set(0)
-    (alex) {
-      age.set(0)
-      name.set("rewws")
+    (person) {
+      id.set(0)
+      name.set("alex")
+    }
+    (payment) {
+      currency.set("AUD")
+      amount.set("15")
     }
   }
 
-  assertEquals("rewws", model1.cursor.alex.name.value)
+  assertEquals("alex", model1.cursor.person.name.value)
 
   val model2 = model1.cursor.update {
-    alex.name.set("World")
+    person.name.set("World")
   }
 
   model2.root
 
-  assertEquals("rewws", model1.cursor.alex.name.value)
-  assertEquals("World", model2.cursor.alex.name.value)
+  assertEquals("alex", model1.cursor.person.name.value)
+  assertEquals("World", model2.cursor.person.name.value)
 
-  val model3 = model2.cursor.alex.update {
+  val model3 = model2.cursor.person.update {
     name.set("No way")
   }
-  assertEquals("No way", model3.cursor.alex.name.value)
+  assertEquals("No way", model3.cursor.person.name.value)
 }
 
 

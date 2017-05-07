@@ -1,0 +1,16 @@
+static class MyWorld {
+  public static KProperty[] $$delegProps =
+    new KProperty[] {
+      Reflection.property1(/*🔮*/)
+    };
+  private final DI niffler$;
+
+  public MyWorld() {
+    this.niffler$ = DI.INSTANCE;
+  }
+
+  public Creature getNiffler() {
+    return niffler$.
+      getValue(this, $$delegProps[0]);
+  }
+}

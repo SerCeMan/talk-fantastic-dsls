@@ -32,7 +32,7 @@ operator inline fun <reified T> Cursor<T, Write>.invoke(builder: Cursor<T, Write
   builder()
 }
 
-fun <T> Cursor<Leaf<T>, Write>.set(t: T): Unit {
+infix fun <T> Cursor<Leaf<T>, Write>.set(t: T): Unit {
   f.op.write(t)
 }
 

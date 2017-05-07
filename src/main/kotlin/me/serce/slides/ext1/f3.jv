@@ -1,0 +1,11 @@
+static String removeSpaces(String $receiver) {
+  StringBuilder sb = new StringBuilder();
+  int len = $receiver.length();
+  for (int i = 0; i < len; i++) {
+    char c = $receiver.charAt(i);
+    if (c != ' ') {
+      sb.append(c);
+    }
+  }
+  return sb.toString();
+}

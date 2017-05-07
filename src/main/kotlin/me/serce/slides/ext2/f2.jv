@@ -1,0 +1,10 @@
+static String map(String $receiver, Function1 f) {
+  char[] arr = $receiver.toCharArray();
+  ArrayList dest = new ArrayList(arr.length);
+  for(int i = 0; i < arr.length; ++i) {
+    char c1 = arr[i];
+    char c2 = (Character)f.invoke(c1);
+    dest.add(c2);
+  }
+  return CollectionsKt.joinToStr(dest, "");
+}

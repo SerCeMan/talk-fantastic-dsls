@@ -2,7 +2,6 @@ package me.serce.fantastic
 
 import me.serce.fantastic.impl.*
 
-
 interface Transaction
 val <F> Cursor<Transaction, F>.person by Node<Person>()
 val <F> Cursor<Transaction, F>.payment by Node<Payment>()
@@ -14,7 +13,6 @@ val <F> Cursor<Person, F>.name by Leaf<String>()
 interface Payment
 val <F> Cursor<Payment, F>.currency by Leaf<String>()
 val <F> Cursor<Payment, F>.amount by Leaf<Int>()
-
 
 
 
@@ -30,6 +28,11 @@ private fun buildModel() {
       amount.set("15")
     }
   }
+
+  model.cursor.person.id.value
+
+  val payment: Cursor<Payment, Read<Transaction>> = model1.cursor.payment
+  payment.amount.value
 
   assertEquals("alex", model1.cursor.person.name.value)
 

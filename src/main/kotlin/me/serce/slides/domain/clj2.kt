@@ -1,7 +1,5 @@
 // update
-val tran2 = tran.pUpdate(
-  listOf("parts", "from", "name"),
-  "stan"
-)
+val path = listOf("parts", "from", "name")
+val tran2 = tran.pUpdate(path, "stan")
 
 

@@ -8,6 +8,7 @@ var gulp = require('gulp'),
 
 var fileinclude = require('gulp-file-include');
 var runSequence = require('run-sequence');
+var gulpHtml = require('gulp-html-entities');
 
 
 gulp.task('sass', function () {

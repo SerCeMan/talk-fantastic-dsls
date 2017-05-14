@@ -24,7 +24,6 @@
             'components/reveal.js/css/print/paper.css';
         document.getElementsByTagName('head')[0].appendChild(link);
     </script>
-    <script src="components/highlightjs/highlight.pack.js"></script>
     <!--[if lt IE 9]>
     <script src="components/reveal.js/lib/js/html5shiv.js"></script>
     <![endif]-->
@@ -58,14 +57,14 @@
                     border: 0 !important;
                 }
             </style>
+            <img src="img/canva.png" height="280px">
             <p style="text-align: left; margin-left: 100px">
-                <img src="img/jetbrains.svg" height="300px">
-                <img src="img/canva.png" height="300px">
-
                 <br><a href="http://serce.me">http://serce.me</a>
                 <br><a href="http://github.com/SerCeMan">GitHub @SerCeMan</a>
                 <br><a href="http://twitter.com/SerCeMan">Twitter @SerCeMan</a>
-                <br><img src="img/kotlin.png" height="100px">
+                <br>
+                <img style="margin-left: -30px;" src="img/jetbrains.svg" height="140px">
+                <img src="img/kotlin.png" height="140px">
             </p>
         </section>
 
@@ -136,13 +135,134 @@
             <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
 @@include('html/f1.kts')
 </code></pre>
+            <a href="https://github.com/TinyMission/kara">github.com/TinyMission/kara</a>
         </section>
 
 
         <section>
-            <h2>Persistent data structures</h2>
-            <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
+            <h2>IDE</h2>
+        </section>
+
+
+        <section>
+            <h2>Teamcity DSL</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+object Project : Project({
+  uuid = "my_project_id"
+  extId = "ExampleOfDSL"
+  name = "Example of DSL"
+
+  val vcsRoot = GitVcsRoot({
+    uuid = "my_vcs_root_id"
+    name = "Example of DSL VCS Root"
+    url = "..."
+  })
+  buildType {
+    uuid = "my_build_type_id"
+    extId = "ExampleOfDSL_Build"
+    name = "Build"
+    buildNumberPattern = "%build.counter%"
+    vcs {
+      root(vcsRoot)
+    }
+    steps {
+      maven {
+        goals = "clean test"
+      }
+    }
+  }
+})
+</code></pre>
+            <a href="https://blog.jetbrains.com/teamcity/2016/11/kotlin-configuration-scripts-an-introduction/">blog.jetbrains.com/teamcity/2016/11/kotlin-configuration-scripts-an-introduction/</a>
+        </section>
+
+
+        <section>
+            <h2>Gradle Kotlin</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+apply {
+    plugin("com.android.application")
+    plugin("kotlin-android")
+}
+
+android {
+    buildToolsVersion("25.0.0")
+    compileSdkVersion(23)
+
+    defaultConfig {
+        minSdkVersion(15)
+
+        applicationId = "com.example.kotlingradle"
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+        }
+    }
+}
+
+dependencies {
+    compile("com.android.support:appcompat-v7:23.4.0")
+    compile(kotlinModule("stdlib"))
+}
+</code></pre>
+            <a href="https://github.com/gradle/gradle-script-kotlin">github.com/gradle/gradle-script-kotlin</a>
+        </section>
+
+
+        <section>
+            <h2>Anko</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    verticalLayout {
+        padding = dip(30)
+        editText {
+            hint = "Name"
+            textSize = 24f
+        }
+        editText {
+            hint = "Password"
+            textSize = 24f
+        }
+        button("Login") {
+            textSize = 26f
+        }
+    }
+}
             </code></pre>
+            <a href="https://github.com/Kotlin/anko">github.com/Kotlin/anko</a>
+        </section>
+
+
+        <section>
+            <h2>Spek</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+object SimpleSpec: Spek({
+    describe("a calculator") {
+        val calculator = SampleCalculator()
+
+        on("addition") {
+            val sum = calculator.sum(2, 4)
+
+            it("should return the result of adding") {
+                assertEquals(6, sum)
+            }
+        }
+
+        on("subtraction") {
+            val subtract = calculator.subtract(4, 2)
+
+            it("should return the result of subtracting") {
+                assertEquals(2, subtract)
+            }
+        }
+    }
+})
+            </code></pre>
+            <a href="http://spekframework.org">spekframework.org</a>
         </section>
 
 
@@ -174,6 +294,13 @@
                     </td>
                 </tr>
             </table>
+        </section>
+
+
+        <section>
+            <h2>Persistent data structures</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
+            </code></pre>
         </section>
 
 
@@ -231,7 +358,46 @@ fun Collection&lt;Int&gt;.toIntArray(): IntArray {
 
 
         <section>
+            <h2>IDE</h2>
+        </section>
+
+
+        <section>
+            <h2>Conclusion</h2>
+            <ul>
+                <li>DSLs in Kotlin are easy to build</li>
+                <li>DSLs in Kotlin work ideally as configuration API</li>
+                <li>They can work as a powerful abstraction</li>
+            </ul>
+        </section>
+
+        <section>
             <h2>Warning</h2>
+            Don't use it for evil
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+class Ternary&lt;T&gt;(val expr: Boolean, val then: T) {
+  operator fun div(elsе: T): T = if (expr) then else elsе
+}
+
+operator fun &lt;T&gt; Boolean.rem(a: T): Ternary&lt;T&gt; = Ternary(this, a)
+
+val result = (5 == 2 + 3) % 1 / 2 // 1
+            </code></pre>
+            <a href="https://gist.github.com/naixx/9d94c1498c4d45ffda3a">gist.github.com/naixx/9d94c1498c4d45ffda3a</a>
+        </section>
+
+        <section>
+            <h2>Thank you</h2>
+
+            <p>Some resources:</p>
+            <ul>
+                <li>
+                    <a href="https://victor.kropp.name/blog/kotlin-dsls-good-bad-and-ugly/">DSLs in Kotlin: The Good, the Bad and the Ugly</a>
+                </li>
+                <li>
+                    <a href="http://jonnyzzz.com/blog/2016/09/02/dsl-building/">Building DSL Instead of an IDE Plugin</a>
+                </li>
+            </ul>
         </section>
 
 
@@ -239,11 +405,9 @@ fun Collection&lt;Int&gt;.toIntArray(): IntArray {
 
 </div>
 
-<!-- u can't touch this -->
 <script type="text/javascript" src="components/reveal.js/lib/js/head.min.js"></script>
 <script type="text/javascript" src="components/reveal.js/js/reveal.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
-<!-- u can't touch this -->
 
 </body>
 </html>

@@ -113,12 +113,6 @@
       callback: function () {
         hljs.initHighlightingOnLoad();
       }
-    }, {
-      src: 'components/reveal.js/plugin/zoom-js/zoom.js',
-      async: true
-    }, {
-      src: 'components/reveal.js/plugin/notes/notes.js',
-      async: true
     }]
   });
 

@@ -11,7 +11,6 @@
   ],
   "license": "WTFPL",
   "dependencies": {
-    "reveal.js": "~3.4.1",
-    "highlightjs": "9.10.0"
+    "reveal.js": "~3.5.0"
   }
 }

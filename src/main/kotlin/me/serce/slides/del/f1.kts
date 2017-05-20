@@ -19,5 +19,5 @@ object DI {
   }
 }
 
-println(MyWorld().niffler)
+println(MyWorld().niffler) // Niffler@7c98a2ab
 

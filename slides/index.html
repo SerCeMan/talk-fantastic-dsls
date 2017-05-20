@@ -339,8 +339,8 @@ object SimpleSpec: Spek({
 @@include('domain/cljv.clj')
                         </code></pre>
                     </td>
-                    <td style="width: 50%" class="code">
-
+                    <td style="width: 50%; vertical-align: top" class="code">
+                        <img src="img/kotlin_domain_2.png">
                     </td>
                 </tr>
             </table>
@@ -359,7 +359,8 @@ object SimpleSpec: Spek({
                     <td style="width: 50%">
                         <pre class="fragment fade-in"><code class="kotlin hljs" data-trim>
 @@include('domain/clj2.kt')
-                        </code></pre>
+                        </code>
+                        <img src="img/kotlin_domain_2.png"></pre>
                     </td>
                 </tr>
             </table>
@@ -405,17 +406,22 @@ fun Collection&lt;Int&gt;.toIntArray(): IntArray {
 
 
         <section>
-            <h2>Conclusion</h2>
+            <h2>Conclusions</h2>
             <ul>
-                <li>DSLs in Kotlin are easy to build</li>
-                <li>DSLs in Kotlin work ideally as configuration API</li>
-                <li>They can work as a powerful abstraction</li>
+                <li class="fragment fade-in">DSLs in Kotlin are easy to build</li>
+                <li class="fragment fade-in">DSLs in Kotlin work ideally as configuration API</li>
+                <li class="fragment fade-in">They can work as a powerful abstraction</li>
             </ul>
         </section>
 
         <section>
             <h2>Warning</h2>
-            <p>Give a way to bypass your DSL</p>
+            <ul>
+                <li class="fragment fade-in">Most of the time a plain code is better than DSL</li>
+                <li class="fragment fade-in">Give a way to bypass your DSL</li>
+            </ul>
+            <br><br>
+            <div class="fragment fade-in">
             Don't use it for evil
             <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
 class Ternary&lt;T&gt;(val expr: Boolean, val then: T) {
@@ -426,7 +432,8 @@ operator fun &lt;T&gt; Boolean.rem(a: T): Ternary&lt;T&gt; = Ternary(this, a)
 
 val result = (5 == 2 + 3) % 1 / 2 // 1
             </code></pre>
-            <a href="https://gist.github.com/naixx/9d94c1498c4d45ffda3a">gist.github.com/naixx/9d94c1498c4d45ffda3a</a>
+                <a href="https://gist.github.com/naixx/9d94c1498c4d45ffda3a">gist.github.com/naixx/9d94c1498c4d45ffda3a</a>
+            </div>
         </section>
 
         <section>
@@ -435,12 +442,12 @@ val result = (5 == 2 + 3) % 1 / 2 // 1
             <p>Some resources:</p>
             <ul>
                 <li>
-                    <a href="https://victor.kropp.name/blog/kotlin-dsls-good-bad-and-ugly/">DSLs in Kotlin: The Good,
-                        the Bad and the Ugly</a>
-                </li>
-                <li>
                     <a href="http://jonnyzzz.com/blog/2016/09/02/dsl-building/">Building DSL Instead of an IDE
                         Plugin</a>
+                </li>
+                <li>
+                    <a href="https://victor.kropp.name/blog/kotlin-dsls-good-bad-and-ugly/">DSLs in Kotlin: The Good,
+                        the Bad and the Ugly</a>
                 </li>
             </ul>
         </section>

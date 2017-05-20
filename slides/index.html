@@ -44,8 +44,10 @@
     <div class="slides">
         <section data-background-image="img/1.jpg">
             <div style="font-size: 110px; font-family: Harry P, fantasy">
-                <p>Fantastic<p>
-                <p style="font-size: 180px">DSLs<p>
+                <p>Fantastic
+                <p>
+                <p style="font-size: 180px">DSLs
+                <p>
                 <p>and where to find them</p>
             </div>
         </section>
@@ -59,6 +61,7 @@
             </style>
             <img src="img/canva.png" height="280px">
             <p style="text-align: left; margin-left: 100px">
+                <br>Sergey Tselovalnikov
                 <br><a href="http://serce.me">http://serce.me</a>
                 <br><a href="http://github.com/SerCeMan">GitHub @SerCeMan</a>
                 <br><a href="http://twitter.com/SerCeMan">Twitter @SerCeMan</a>
@@ -66,6 +69,29 @@
                 <img style="margin-left: -30px;" src="img/jetbrains.svg" height="140px">
                 <img src="img/kotlin.png" height="140px">
             </p>
+
+        </section>
+
+        <section data-background-image="img/2.jpg">
+            <h1>What is DSL</h1>
+            <div style="text-align: left;">
+                <blockquote class="fragment fade-in" style="background-color: #242424">
+                    <span style="opacity: 0.7">A computer programming</span>
+                    <span style="color: #ff9900;">language</span>
+                    <span style="opacity: 0.7"> of limited expressiveness </span>
+                    <span style="color: #ff9900;">focused</span><span style="opacity: 0.7"> on a particular </span>
+                    <span style="color: #ff9900;">domain</span>
+                    <footer>— <cite>Martin Fowler</cite></footer>
+                </blockquote>
+
+                <blockquote class="fragment fade-in" style="background-color: #242424">
+                    <span style="opacity: 0.7">A</span>
+                    <span style="color: #ff9900;">language </span>
+                    <span style="opacity: 0.7">(or a set of abstractions)</span>
+                    <span style="opacity: 0.7">that's built to deal with a </span>
+                    <span style="color: #ff9900;">specific domain</span>
+                </blockquote>
+            </div>
         </section>
 
         <section>
@@ -73,15 +99,15 @@
             <table width="100%">
                 <tr>
                     <td>
-                        <pre style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
+                        <pre class="fragment fade-in" style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
 @@include('ext1/f1.kt')
                         </code></pre>
-                        <pre><code class="kotlin hljs" data-trim>
+                        <pre class="fragment fade-in"><code class="kotlin hljs" data-trim>
 @@include('ext1/f2.kt')
                         </code></pre>
                     </td>
                     <td class="code">
-                        <pre><code class="java hljs" data-trim>
+                        <pre class="fragment fade-in"><code class="java hljs" data-trim>
 @@include('ext1/f3.jv')
                         </code></pre>
                     </td>
@@ -100,7 +126,7 @@
 @@include('ext2/f1.kts')
                         </code></pre>
                     </td>
-                    <td class="code">
+                    <td  class="fragment fade-in">
                         <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
 @@include('ext2/f2.jv')
                         </code></pre>
@@ -276,31 +302,48 @@ object SimpleSpec: Spek({
             <h2>Data classes</h2>
             <table width="100%">
                 <tr>
-                    <td>
+                    <td style="width: 50%">
                         <pre style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
 @@include('domain/data1.kt')
                         </code></pre>
+                    </td>
+                    <td style="width: 50%">
+                        <pre><code class="kotlin hljs" data-trim>
+@@include('domain/data3.kt')
+                        </code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">
                         <pre><code class="kotlin hljs" data-trim>
 @@include('domain/data2.kt')
                         </code></pre>
                     </td>
-                    <td class="code">
-                        <pre><code class="kotlin hljs" data-trim>
-@@include('domain/data3.kt')
-                        </code></pre>
+                    <td style="width: 50%">
                         <pre><code class="kotlin hljs" data-trim>
 @@include('domain/data4.kt')
                         </code></pre>
                     </td>
                 </tr>
+
             </table>
         </section>
 
 
         <section>
-            <h2>Persistent data structures</h2>
-            <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
-            </code></pre>
+            <h2>Clojure way</h2>
+            <table width="100%">
+                <tr>
+                    <td style="width: 50%">
+                        <pre><code style="overflow: hidden; width: 100%" class="clojure hljs" data-trim>
+@@include('domain/cljv.clj')
+                        </code></pre>
+                    </td>
+                    <td style="width: 50%" class="code">
+
+                    </td>
+                </tr>
+            </table>
         </section>
 
 
@@ -308,20 +351,19 @@ object SimpleSpec: Spek({
             <h2>Persistent DS</h2>
             <table width="100%">
                 <tr>
-                    <td>
+                    <td style="width: 50%">
                         <pre style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
 @@include('domain/clj1.kt')
                         </code></pre>
                     </td>
-                    <td class="code">
-                        <pre><code class="kotlin hljs" data-trim>
+                    <td style="width: 50%">
+                        <pre class="fragment fade-in"><code class="kotlin hljs" data-trim>
 @@include('domain/clj2.kt')
                         </code></pre>
                     </td>
                 </tr>
             </table>
         </section>
-
 
 
         <section>
@@ -373,6 +415,7 @@ fun Collection&lt;Int&gt;.toIntArray(): IntArray {
 
         <section>
             <h2>Warning</h2>
+            <p>Give a way to bypass your DSL</p>
             Don't use it for evil
             <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
 class Ternary&lt;T&gt;(val expr: Boolean, val then: T) {
@@ -392,10 +435,12 @@ val result = (5 == 2 + 3) % 1 / 2 // 1
             <p>Some resources:</p>
             <ul>
                 <li>
-                    <a href="https://victor.kropp.name/blog/kotlin-dsls-good-bad-and-ugly/">DSLs in Kotlin: The Good, the Bad and the Ugly</a>
+                    <a href="https://victor.kropp.name/blog/kotlin-dsls-good-bad-and-ugly/">DSLs in Kotlin: The Good,
+                        the Bad and the Ugly</a>
                 </li>
                 <li>
-                    <a href="http://jonnyzzz.com/blog/2016/09/02/dsl-building/">Building DSL Instead of an IDE Plugin</a>
+                    <a href="http://jonnyzzz.com/blog/2016/09/02/dsl-building/">Building DSL Instead of an IDE
+                        Plugin</a>
                 </li>
             </ul>
         </section>

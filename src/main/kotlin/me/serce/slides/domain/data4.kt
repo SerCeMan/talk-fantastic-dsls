@@ -2,7 +2,7 @@
 val stansTrs2 = trs.copy(
   parts = trs.parts.copy(
     from = trs.parts.from.copy(
-      name = "stan"
+      name = "john"
     )
   )
 )

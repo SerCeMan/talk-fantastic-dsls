@@ -2,53 +2,70 @@ package me.serce.fantastic
 
 import me.serce.fantastic.impl.*
 
-interface Transaction
-val <F> Cursor<Transaction, F>.person by Node<Person>()
-val <F> Cursor<Transaction, F>.payment by Node<Payment>()
 
-interface Person
-val <F> Cursor<Person, F>.id by Leaf<Int>()
-val <F> Cursor<Person, F>.name by Leaf<String>()
+
+
+
+
+
+
+interface Transaction
+val <F> Cursor<Transaction, F>.payment by Node<Payment>()
+val <F> Cursor<Transaction, F>.parts by Node<Parts>()
 
 interface Payment
 val <F> Cursor<Payment, F>.currency by Leaf<String>()
 val <F> Cursor<Payment, F>.amount by Leaf<Int>()
 
+interface Parts
+val <F> Cursor<Parts, F>.to by Node<Person>()
+val <F> Cursor<Parts, F>.from by Node<Person>()
+
+interface Person
+val <F> Cursor<Person, F>.id by Leaf<Int>()
+val <F> Cursor<Person, F>.name by Leaf<String>()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 private fun buildModel() {
-  val model = Domain<Transaction>()
-  val model1 = model.cursor.update {
-    (person) {
-      id.set(0)
-      name.set("alex")
-    }
+  val model = Domain<Transaction>().cursor.update {
     (payment) {
       currency.set("AUD")
       amount.set("15")
     }
+    (parts) {
+      (from) {
+        id.set(0)
+        name.set("alex")
+      }
+      (to) {
+        id.set(1)
+        name.set("ben")
+      }
+    }
   }
 
-  model.cursor.person.id.value
+  assertEquals("alex", model.cursor.parts.from.name.value)
 
-  val payment: Cursor<Payment, Read<Transaction>> = model1.cursor.payment
-  payment.amount.value
-
-  assertEquals("alex", model1.cursor.person.name.value)
-
-  val model2 = model1.cursor.update {
-    person.name.set("World")
+  val model2 = model.cursor.parts.from.update {
+    name.set("john")
   }
 
-  model2.root
-
-  assertEquals("alex", model1.cursor.person.name.value)
-  assertEquals("World", model2.cursor.person.name.value)
-
-  val model3 = model2.cursor.person.update {
-    name.set("No way")
-  }
-  assertEquals("No way", model3.cursor.person.name.value)
+  assertEquals("alex", model.cursor.parts.from.name.value)
+  assertEquals("john", model2.cursor.parts.from.name.value)
 }
 
 

@@ -1,8 +1,7 @@
 package me.serce.fantastic.impl
 
-import clojure.lang.APersistentMap
-import clojure.lang.PersistentHashMap
-
+import clojure.lang.APersistentMap as PMap
+import clojure.lang.PersistentHashMap as PHashMap
 
 interface Read<out M> {
   val path: Path
@@ -21,23 +20,7 @@ class Reader<out T>(val p: Path, val dm: Domain<T>) : Focus<Read<T>> {
 inline val <reified V, T> Cursor<Leaf<V>, Read<T>>.value: V
   get() = f.op.path.getIn(f.op.domain.root) as V
 
-class Domain<out T>(val root: APersistentMap = PersistentHashMap.EMPTY) {
-  fun update(f: (Mutable) -> Unit): Domain<T> {
-    val m = Mutable(root)
-    f(m)
-    return Domain(m.read(Path.EMPTY) as APersistentMap)
-  }
-}
+class Domain<out T>(val root: PMap = PHashMap.EMPTY)
 
 val <T> Domain<T>.cursor: Cursor<T, Read<T>>
   get() = Cursor(Reader(Path.EMPTY, this))
-
-fun <T, M> Cursor<M, Read<T>>.update(writer: Cursor<M, Write>.() -> Unit): Domain<T> {
-  return f.op.domain.update {
-    Cursor<M, Write>(WriterCursor(it, f.op.path)).writer()
-  }
-}
-
-
-
-

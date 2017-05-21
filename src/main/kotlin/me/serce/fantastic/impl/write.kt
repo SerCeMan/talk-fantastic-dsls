@@ -1,8 +1,8 @@
 package me.serce.fantastic.impl
 
-import clojure.lang.PersistentArrayMap
+import clojure.lang.APersistentMap as PMap
+import clojure.lang.PersistentArrayMap as PArrayMap
 import kotlin.reflect.KClass
-
 
 interface Write {
   fun read(): Any?
@@ -22,9 +22,15 @@ fun Write.init(k: KClass<*>) {
   if (read() == null) {
     write(when (k) {
       Leaf::class -> null
-      else -> PersistentArrayMap.EMPTY
+      else -> PArrayMap.EMPTY
     })
   }
+}
+
+fun <T, M> Cursor<M, Read<T>>.update(update: Cursor<M, Write>.() -> Unit): Domain<T> {
+  val m = Mutable(f.op.domain.root)
+  Cursor<M, Write>(WriterCursor(m, f.op.path)).update()
+  return Domain(m.read(Path.EMPTY) as PMap)
 }
 
 operator inline fun <reified T> Cursor<T, Write>.invoke(builder: Cursor<T, Write>.() -> Unit): Unit {

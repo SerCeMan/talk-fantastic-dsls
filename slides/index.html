@@ -99,15 +99,15 @@
             <table width="100%">
                 <tr>
                     <td>
-                        <pre class="fragment fade-in" style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
-@@include('ext1/f1.kt')
+                        <pre class="fragment fade-in" data-fragment-index="1" style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
+@@include('ext1/f1.kts')
                         </code></pre>
-                        <pre class="fragment fade-in"><code class="kotlin hljs" data-trim>
+                        <pre class="fragment fade-in" data-fragment-index="3"><code class="kotlin hljs" data-trim>
 @@include('ext1/f2.kt')
                         </code></pre>
                     </td>
                     <td class="code">
-                        <pre class="fragment fade-in"><code class="java hljs" data-trim>
+                        <pre class="fragment fade-in" data-fragment-index="2"><code class="java hljs" data-trim>
 @@include('ext1/f3.jv')
                         </code></pre>
                     </td>
@@ -147,7 +147,7 @@
                         </code></pre>
                     </td>
                     <td class="code">
-                        <pre><code class="java hljs" data-trim>
+                        <pre class="fragment fade-in"><code class="java hljs" data-trim>
 @@include('ext3/f2.jv')
                         </code></pre>
                     </td>
@@ -307,19 +307,19 @@ object SimpleSpec: Spek({
 @@include('domain/data1.kt')
                         </code></pre>
                     </td>
-                    <td style="width: 50%">
+                    <td class="fragment fade-in" data-fragment-index="2" style="width: 50%">
                         <pre><code class="kotlin hljs" data-trim>
 @@include('domain/data3.kt')
                         </code></pre>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 50%">
+                    <td class="fragment fade-in" data-fragment-index="1" style="width: 50%">
                         <pre><code class="kotlin hljs" data-trim>
 @@include('domain/data2.kt')
                         </code></pre>
                     </td>
-                    <td style="width: 50%">
+                    <td class="fragment fade-in" data-fragment-index="3" style="width: 50%">
                         <pre><code class="kotlin hljs" data-trim>
 @@include('domain/data4.kt')
                         </code></pre>

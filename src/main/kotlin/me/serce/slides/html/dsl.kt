@@ -2,9 +2,9 @@ fun main(args: Array<String>) {
   val list = listOf("Kotlin", "is", "awesome")
   val result: HTML =
     html {
-      head {
+      this.head({
         title { +"HTML DSL in Kotlin" }
-      }
+      })
       body {
         p {
           +"a line about Kotlin"

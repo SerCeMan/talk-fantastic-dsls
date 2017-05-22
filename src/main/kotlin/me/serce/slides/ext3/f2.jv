@@ -1,7 +1,7 @@
 class SomeFunction
-  implements Function1&lt;Droid, Unit&gt; {
+  implements Function1&lt;Goblin, Unit&gt; {
 
-  public Unit invoke(Droid droid) {
+  public Unit invoke(Goblin droid) {
     droid.moveLeft();
     if (droid.getPeopleAround()) {
       droid.fire(droid.getGun());
@@ -11,7 +11,7 @@ class SomeFunction
 }
 
 static void on(String cmd,
-               Function1&lt;Droid, Unit&gt; f) {
+               Function1&lt;Goblin, Unit&gt; f) {
   // ...
   f.invoke(droid);
   // ...

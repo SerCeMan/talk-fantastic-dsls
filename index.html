@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Fantastic DSLs</title>
+    <meta name="description" content="replace this description">
+    <meta name="author" content="put your name here">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <!-- Base styles -->
+    <link rel="stylesheet" href="components/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="css/build/theme.css" id="theme">
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="components/reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script type="text/javascript">
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ?
+            'components/reveal.js/css/print/pdf.css' :
+            'components/reveal.js/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!--[if lt IE 9]>
+    <script src="components/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+        td {
+            padding: 0 !important;
+        }
+
+        code {
+            width: 100%;
+            max-height: 600px !important;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section data-background-image="img/1.jpg">
+            <div style="font-size: 110px; font-family: Harry P, fantasy">
+                <p>Fantastic
+                <p>
+                <p style="font-size: 180px">DSLs
+                <p>
+                <p>and where to find them</p>
+            </div>
+        </section>
+
+        <section>
+            <div style="position: absolute; font-size: 180px; color: red">
+                <b>YOU<nbsp/>KNOW WHO</b><br>
+                <b>I AM</b>
+            </div>
+            <style>
+                img {
+                    background: none !important;
+                    border: 0 !important;
+                }
+            </style>
+            <img src="img/canva.png" height="280px">
+            <p style="text-align: left; margin-left: 100px">
+                <br>Sergey Tselovalnikov
+                <br><a href="http://serce.me">http://serce.me</a>
+                <br><a href="http://github.com/SerCeMan">GitHub @SerCeMan</a>
+                <br><a href="http://twitter.com/SerCeMan">Twitter @SerCeMan</a>
+                <br>
+                <img src="img/kotlin.png" height="140px">
+            </p>
+
+        </section>
+
+        <section data-background-image="img/2.jpg">
+            <h1>What is DSL</h1>
+            <div style="text-align: left;">
+                <blockquote class="fragment fade-in" style="background-color: #242424">
+                    <span style="opacity: 0.7">A computer programming</span>
+                    <span style="color: #ff9900;">language</span>
+                    <span style="opacity: 0.7"> of limited expressiveness </span>
+                    <span style="color: #ff9900;">focused</span><span style="opacity: 0.7"> on a particular </span>
+                    <span style="color: #ff9900;">domain</span>
+                    <footer>— <cite>Martin Fowler</cite></footer>
+                </blockquote>
+
+                <blockquote class="fragment fade-in" style="background-color: #242424">
+                    <span style="opacity: 0.7">A</span>
+                    <span style="color: #ff9900;">language </span>
+                    <span style="opacity: 0.7">(or a set of abstractions)</span>
+                    <span style="opacity: 0.7">that's built to deal with a </span>
+                    <span style="color: #ff9900;">specific domain</span>
+                </blockquote>
+            </div>
+        </section>
+
+        <section>
+            <h2>Extension functions</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre class="fragment fade-in" data-fragment-index="1" style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
+fun String.removeSpaces(): String {
+  return this.filter({ c -> c != ' ' })
+}
+
+print("Hi ! , ext".removeSpaces()) // "Hi!,ext"
+
+                        </code></pre>
+                        <pre class="fragment fade-in" data-fragment-index="3"><code class="kotlin hljs" data-trim>
+// from stdlib
+public inline fun String.filter(
+  predicate: (Char) -> Boolean): String {
+  val destination = StringBuilder()
+  for (index in 0..length - 1) {
+    val element = get(index)
+    if (predicate(element))
+      destination.append(element)
+  }
+  return destination.toString()
+}
+
+                        </code></pre>
+                    </td>
+                    <td class="code">
+                        <pre class="fragment fade-in" data-fragment-index="2"><code class="java hljs" data-trim>
+static String removeSpaces(String $receiver) {
+  StringBuilder sb = new StringBuilder();
+  int len = $receiver.length();
+  for (int i = 0; i < len; i++) {
+    char c = $receiver.charAt(i);
+    if (c != ' ') {
+      sb.append(c);
+    }
+  }
+  return sb.toString();
+}
+
+                        </code></pre>
+                    </td>
+                </tr>
+            </table>
+
+        </section>
+
+
+        <section>
+            <h2>Extension functions</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+fun String.map(f: (Char) -> Char): String {
+  return toCharArray()
+    .map { f(it) }
+    .joinToString("")
+}
+
+val cypher = "Hello, DSL".map { it + 1 }
+println(cypher) // Ifmmp-!ETM
+
+                        </code></pre>
+                    </td>
+                    <td  class="fragment fade-in">
+                        <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
+static String map(String $receiver, Function1 f) {
+  char[] arr = $receiver.toCharArray();
+  ArrayList dest = new ArrayList(arr.length);
+  for(int i = 0; i < arr.length; ++i) {
+    char c1 = arr[i];
+    char c2 = (Character)f.invoke(c1);
+    dest.add(c2);
+  }
+  return CollectionsKt.joinToStr(dest, "");
+}
+
+                        </code></pre>
+                    </td>
+                </tr>
+            </table>
+
+        </section>
+
+
+        <section style="padding: 0">
+            <h2>Extension functions</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre><code class="kotlin hljs" data-trim>
+interface Gоblin {
+  val peopleAround: Boolean
+  val gun: Gun
+
+  fun fire(gun: Gun)
+  fun moveLeft()
+  fun moveRight()
+}
+
+fun on(cmd: String, f: Goblin.() -> Unit) {
+// ...
+  goblin.f()
+// ...
+}
+
+//
+
+on("back") {
+  moveLeft()
+  if (peopleAround) {
+    fire(gun)
+  }
+}
+
+                        </code></pre>
+                    </td>
+                    <td class="code">
+                        <pre class="fragment fade-in"><code class="java hljs" data-trim>
+class SomeFunction
+  implements Function1&lt;Goblin, Unit&gt; {
+
+  public Unit invoke(Goblin droid) {
+    droid.moveLeft();
+    if (droid.getPeopleAround()) {
+      droid.fire(droid.getGun());
+    }
+    return Unit.INSTANCE;
+  }
+}
+
+static void on(String cmd,
+               Function1&lt;Goblin, Unit&gt; f) {
+  // ...
+  f.invoke(droid);
+  // ...
+}
+
+public static void main() {
+  on(&quot;back&quot;, SomeFunction.INSTANCE);
+}
+
+                        </code></pre>
+                    </td>
+                </tr>
+            </table>
+
+        </section>
+
+        <section>
+            <h2>HTML</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+val list = listOf("Kotlin", "is", "awesome")
+val result: HTML =
+  html {
+    head {
+      title { +"HTML DSL in Kotlin" }
+    }
+    body {
+      p {
+        +"a line about Kotlin"
+        +"another line"
+      }
+      a(href = "jetbrains.com/kotlin") {
+        +"Kotlin"
+      }
+      p {
+        +"Kotlin is:"
+        ul {
+          for (arg in list)
+            li { +arg }
+        }
+      }
+    }
+  }
+println(result)
+
+</code></pre>
+            <a href="https://github.com/TinyMission/kara">github.com/TinyMission/kara</a>
+        </section>
+
+
+        <section>
+            <h2>IDE</h2>
+        </section>
+
+
+        <section>
+            <h2>Teamcity DSL</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+object Project : Project({
+  uuid = "my_project_id"
+  extId = "ExampleOfDSL"
+  name = "Example of DSL"
+
+  val vcsRoot = GitVcsRoot({
+    uuid = "my_vcs_root_id"
+    name = "Example of DSL VCS Root"
+    url = "..."
+  })
+  buildType {
+    uuid = "my_build_type_id"
+    extId = "ExampleOfDSL_Build"
+    name = "Build"
+    buildNumberPattern = "%build.counter%"
+    vcs {
+      root(vcsRoot)
+    }
+    steps {
+      maven {
+        goals = "clean test"
+      }
+    }
+  }
+})
+</code></pre>
+            <a href="https://blog.jetbrains.com/teamcity/2016/11/kotlin-configuration-scripts-an-introduction/">blog.jetbrains.com/teamcity/2016/11/kotlin-configuration-scripts-an-introduction/</a>
+        </section>
+
+
+        <section>
+            <h2>Gradle Kotlin</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+apply {
+    plugin("com.android.application")
+    plugin("kotlin-android")
+}
+
+android {
+    buildToolsVersion("25.0.0")
+    compileSdkVersion(23)
+
+    defaultConfig {
+        minSdkVersion(15)
+
+        applicationId = "com.example.kotlingradle"
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+        }
+    }
+}
+
+dependencies {
+    compile("com.android.support:appcompat-v7:23.4.0")
+    compile(kotlinModule("stdlib"))
+}
+</code></pre>
+            <a href="https://github.com/gradle/gradle-script-kotlin">github.com/gradle/gradle-script-kotlin</a>
+        </section>
+
+
+        <section>
+            <h2>Anko</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    verticalLayout {
+        padding = dip(30)
+        editText {
+            hint = "Name"
+            textSize = 24f
+        }
+        editText {
+            hint = "Password"
+            textSize = 24f
+        }
+        button("Login") {
+            textSize = 26f
+        }
+    }
+}
+            </code></pre>
+            <a href="https://github.com/Kotlin/anko">github.com/Kotlin/anko</a>
+        </section>
+
+
+        <section>
+            <h2>Spek</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+object SimpleSpec: Spek({
+    describe("a calculator") {
+        val calculator = SampleCalculator()
+
+        on("addition") {
+            val sum = calculator.sum(2, 4)
+
+            it("should return the result of adding") {
+                assertEquals(6, sum)
+            }
+        }
+
+        on("subtraction") {
+            val subtract = calculator.subtract(4, 2)
+
+            it("should return the result of subtracting") {
+                assertEquals(2, subtract)
+            }
+        }
+    }
+})
+            </code></pre>
+            <a href="http://spekframework.org">spekframework.org</a>
+        </section>
+
+
+        <section>
+            <h2>Domain</h2>
+            <img style="border: 0 !important;" width="800px" src="img/domain.svg">
+        </section>
+
+
+        <section>
+            <h2>Data classes</h2>
+            <table width="100%">
+                <tr>
+                    <td style="width: 50%">
+                        <pre style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
+data class Transaction(val payment: Payment,
+                       val parts: Parts)
+data class Payment(val currency: String,
+                   val amount: Int)
+data class Parts(val from: Person,
+                 val to: Person)
+data class Person(val id: Int, val name: String)
+
+                        </code></pre>
+                    </td>
+                    <td class="fragment fade-in" data-fragment-index="2" style="width: 50%">
+                        <pre><code class="kotlin hljs" data-trim>
+// update 1
+val stansTrs = Transaction(trs.payment, Parts(
+  Person(trs.parts.from.id, "john"),
+  trs.parts.to)
+)
+
+                        </code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="fragment fade-in" data-fragment-index="1" style="width: 50%">
+                        <pre><code class="kotlin hljs" data-trim>
+// create
+val trs = Transaction(
+  Payment("AUD", 15),
+  Parts(
+    Person(0, "alex"),
+    Person(1, "ben")
+  )
+)
+
+                        </code></pre>
+                    </td>
+                    <td class="fragment fade-in" data-fragment-index="3" style="width: 50%">
+                        <pre><code class="kotlin hljs" data-trim>
+// update 2
+val stansTrs2 = trs.copy(
+  parts = trs.parts.copy(
+    from = trs.parts.from.copy(
+      name = "john"
+    )
+  )
+)
+
+
+                        </code></pre>
+                    </td>
+                </tr>
+
+            </table>
+        </section>
+
+
+        <section>
+            <h2>Clojure way</h2>
+            <table width="100%">
+                <tr>
+                    <td style="width: 50%">
+                        <pre><code style="overflow: hidden; width: 100%" class="clojure hljs" data-trim>
+; create
+(def ts {:payment {:currency "AUD"
+                   :amount   15}
+         :parts   {:from {:id   0
+                          :name "alex"}
+                   :to   {:id   1
+                          :name "ben"}}})
+
+
+; update
+(def ts2 (assoc-in ts [:parts :from :name] "john"))
+
+                        </code></pre>
+                    </td>
+                    <td style="width: 50%; vertical-align: top" class="code">
+                        <img src="img/kotlin_domain_2.png">
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+
+        <section>
+            <h2>Persistent DS</h2>
+            <table width="100%">
+                <tr>
+                    <td style="width: 50%">
+                        <pre style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
+// create
+val tran = pArrayMap(
+  "payment" to pArrayMap(
+    "currency" to "AUD",
+    "amount" to 15
+  ),
+  "parts" to pArrayMap(
+    "from" to pArrayMap(
+      "id" to 0,
+      "name" to "alex"
+    ),
+    "to" to pArrayMap(
+      "id" to 1,
+      "name" to "ben"
+    )
+  )
+)
+
+                        </code></pre>
+                    </td>
+                    <td style="width: 50%">
+                        <pre class="fragment fade-in"><code class="kotlin hljs" data-trim>
+// update
+val path = listOf("parts", "from", "name")
+val tran2 = tran.pUpdate(path, "john")
+
+
+
+                        </code>
+                        <img src="img/kotlin_domain_2.png"></pre>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+
+        <section>
+            <h2>Extension function on generic types</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+fun Collection&lt;Int&gt;.toIntArray(): IntArray {
+  val result = IntArray(size)
+  var index = 0
+  for (element in this)
+    result[index++] = element
+  return result
+}
+            </code></pre>
+        </section>
+
+
+        <section data-background-image="img/niffler.jpg">
+            <h2>Delegates</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+import kotlin.reflect.KProperty
+
+interface Creature
+class Niffler : Creature
+
+
+class MyWorld {
+  val niffler: Creature? by DI
+}
+
+object DI {
+  private val map = hashMapOf(
+    "niffler" to Niffler()
+  )
+
+  operator fun getValue(ref: MyWorld,
+    property: KProperty<*>): Creature? {
+    return map[property.name]
+  }
+}
+
+println(MyWorld().niffler) // Niffler@7c98a2ab
+
+
+                        </code></pre>
+                    </td>
+                    <td class="code">
+                        <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
+static class MyWorld {
+  public static KProperty[] $$delegProps =
+    new KProperty[] {
+      Reflection.property1(/*🔮*/)
+    };
+  private final DI niffler$;
+
+  public MyWorld() {
+    this.niffler$ = DI.INSTANCE;
+  }
+
+  public Creature getNiffler() {
+    return niffler$.
+      getValue(this, $$delegProps[0]);
+  }
+}
+
+                        </code></pre>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+
+        <section>
+            <img style="border: 0 !important;" width="800px" src="img/domain.svg">
+        </section>
+
+
+        <section>
+            <h2>Conclusions</h2>
+            <ul>
+                <li class="fragment fade-in">DSLs in Kotlin are easy to build</li>
+                <li class="fragment fade-in">DSLs in Kotlin work ideally as configuration API</li>
+                <li class="fragment fade-in">They can work as a powerful abstraction</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Warning</h2>
+            <ul>
+                <li class="fragment fade-in">Most of the time a plain code is better than DSL</li>
+                <li class="fragment fade-in">Give a way to bypass your DSL</li>
+            </ul>
+            <br><br>
+            <div class="fragment fade-in">
+            Don't use it for evil
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+class Ternary&lt;T&gt;(val expr: Boolean, val then: T) {
+  operator fun div(elsе: T): T = if (expr) then else elsе
+}
+
+operator fun &lt;T&gt; Boolean.rem(a: T): Ternary&lt;T&gt; = Ternary(this, a)
+
+val result = (5 == 2 + 3) % 1 / 2 // 1
+            </code></pre>
+                <a href="https://gist.github.com/naixx/9d94c1498c4d45ffda3a">gist.github.com/naixx/9d94c1498c4d45ffda3a</a>
+            </div>
+        </section>
+
+        <section data-background-image="img/3.jpg">
+            <h2>Thank you</h2>
+
+            <p>Some resources:</p>
+            <ul>
+                <li>
+                    <a href="http://jonnyzzz.com/blog/2016/09/02/dsl-building/">Building DSL Instead of an IDE
+                        Plugin</a>
+                </li>
+                <li>
+                    <a href="https://victor.kropp.name/blog/kotlin-dsls-good-bad-and-ugly/">DSLs in Kotlin: The Good,
+                        the Bad and the Ugly</a>
+                </li>
+            </ul>
+        </section>
+
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="components/reveal.js/lib/js/head.min.js"></script>
+<script type="text/javascript" src="components/reveal.js/js/reveal.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+</body>
+</html>

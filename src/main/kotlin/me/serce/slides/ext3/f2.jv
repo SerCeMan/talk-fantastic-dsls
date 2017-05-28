@@ -1,22 +1,18 @@
-class SomeFunction
-  implements Function1&lt;Goblin, Unit&gt; {
-
-  public Unit invoke(Goblin droid) {
-    droid.moveLeft();
-    if (droid.getPeopleAround()) {
-      droid.fire(droid.getGun());
-    }
-    return Unit.INSTANCE;
-  }
-}
-
 static void on(String cmd,
-               Function1&lt;Goblin, Unit&gt; f) {
+               Function1&lt;Droid, Unit&gt; f) {
   // ...
   f.invoke(droid);
   // ...
 }
 
 public static void main() {
-  on(&quot;back&quot;, SomeFunction.INSTANCE);
+  on(&quot;back&quot;, new Function1&lt;Droid, Unit&gt;() {
+    public Unit invoke(Droid droid) {
+      droid.moveLeft();
+      if (droid.getPeopleAround()) {
+        droid.fire(droid.getGun());
+      }
+      return Unit.INSTANCE;
+    }
+  });
 }

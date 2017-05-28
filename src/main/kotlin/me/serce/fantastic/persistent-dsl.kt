@@ -3,18 +3,11 @@ package me.serce.fantastic
 import me.serce.fantastic.impl.*
 
 
-
-
-
-
-
-
 interface Transaction
 val <F> Cursor<Transaction, F>.payment by Node<Payment>()
 val <F> Cursor<Transaction, F>.parts by Node<Parts>()
 
 interface Payment
-
 val <F> Cursor<Payment, F>.currency by Leaf<String>()
 val <F> Cursor<Payment, F>.amount by Leaf<Int>()
 
@@ -28,21 +21,8 @@ val <F> Cursor<Person, F>.name by Leaf<String>()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 fun main(args: Array<String>) {
-  val model = Domain<Transaction>().cursor.update {
+  val trans = domain<Transaction> {
     (payment) {
       currency.set("AUD")
       amount.set("15")
@@ -59,14 +39,14 @@ fun main(args: Array<String>) {
     }
   }
 
-  assertEquals("alex", model.cursor.parts.from.name.value)
+  assertEquals("alex", trans.cursor.parts.from.name.value)
 
-  val model2 = model.cursor.parts.from.update {
+  val trans2 = trans.cursor.parts.from.update {
     name.set("john")
   }
 
-  assertEquals("alex", model.cursor.parts.from.name.value)
-  assertEquals("john", model2.cursor.parts.from.name.value)
+  assertEquals("alex", trans.cursor.parts.from.name.value)
+  assertEquals("john", trans2.cursor.parts.from.name.value)
 }
 
 fun assertEquals(a: Any, b: Any) {

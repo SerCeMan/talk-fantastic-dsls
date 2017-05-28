@@ -1,4 +1,4 @@
-interface Gоblin {
+interface Drоid {
   val peopleAround: Boolean
   val gun: Gun
 
@@ -7,9 +7,9 @@ interface Gоblin {
   fun moveRight()
 }
 
-fun on(cmd: String, f: Goblin.() -> Unit) {
+fun on(cmd: String, f: Droid.() -> Unit) {
 // ...
-  goblin.f()
+  droid.f()
 // ...
 }
 

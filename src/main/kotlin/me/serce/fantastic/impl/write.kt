@@ -33,9 +33,9 @@ fun <T, M> Cursor<M, Read<T>>.update(update: Cursor<M, Write>.() -> Unit): Domai
   return Domain(m.read(Path.EMPTY) as PMap)
 }
 
-operator inline fun <reified T> Cursor<T, Write>.invoke(builder: Cursor<T, Write>.() -> Unit): Unit {
+operator inline fun <reified T> Cursor<T, Write>.invoke(init: Cursor<T, Write>.() -> Unit): Unit {
   f.op.init(T::class)
-  builder()
+  init()
 }
 
 infix fun <T> Cursor<Leaf<T>, Write>.set(t: T): Unit {

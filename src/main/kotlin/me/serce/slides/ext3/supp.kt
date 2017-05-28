@@ -1,8 +1,8 @@
 class Gun
 
-val goblin: Goblin = null!!
+val droid: Droid = null!!
 
-interface Goblin {
+interface Droid {
   val peopleAround: Boolean
   val gun: Gun
 

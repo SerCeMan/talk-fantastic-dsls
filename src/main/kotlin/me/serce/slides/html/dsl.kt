@@ -2,13 +2,12 @@ fun main(args: Array<String>) {
   val list = listOf("Kotlin", "is", "awesome")
   val result: HTML =
     html {
-      this.head({
+      head {
         title { +"HTML DSL in Kotlin" }
-      })
+      }
       body {
         p {
           +"a line about Kotlin"
-          +"another line"
         }
         a(href = "jetbrains.com/kotlin") {
           +"Kotlin"
@@ -29,13 +28,11 @@ interface Element {
   fun render(builder: StringBuilder, indent: String)
 }
 
-
 class TextElement(val text: String) : Element {
   override fun render(builder: StringBuilder, indent: String) {
     builder.append("$indent$text\n")
   }
 }
-
 
 abstract class Tag(val name: String) : Element {
   val children = arrayListOf<Element>()
@@ -53,10 +50,9 @@ abstract class Tag(val name: String) : Element {
     return attributes.map { (k, v) -> " $k=\"$v\"" }.joinToString("")
   }
 
-  protected fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
+  protected fun <T : Element> initTag(tag: T, init: T.() -> Unit) {
     tag.init()
     children.add(tag)
-    return tag
   }
 
   override fun toString(): String {
@@ -96,8 +92,9 @@ abstract class BodyTag(name: String) : TagWithText(name) {
   fun p(init: P.() -> Unit) = initTag(P(), init)
   fun ul(init: UL.() -> Unit) = initTag(UL(), init)
   fun a(href: String, init: A.() -> Unit) {
-    val a = initTag(A(), init)
+    val a = A()
     a.href = href
+    initTag(a, init)
   }
 }
 
@@ -117,3 +114,5 @@ class A : BodyTag("a") {
     }
 }
 
+//@DslMarker
+//annotation class HtmlTagMarker

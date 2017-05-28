@@ -48,10 +48,13 @@ abstract class Tag(val name: String) : Element {
     return attributes.map { (k, v) -> " $k=\"$v\"" }.joinToString("")
   }
 
-  protected fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
+  protected fun <T : Element> initTag(tag: T, init: T.() -> Unit): Unit {
     tag.init()
     children.add(tag)
-    return tag
+  }
+
+  operator fun String.unaryPlus() {
+    children.add(TextElement(this))
   }
 
   override fun toString(): String {
@@ -67,12 +70,6 @@ class TextElement(val text: String) : Element {
   }
 }
 
-abstract class TagWithText(name: String) : Tag(name) {
-  operator fun String.unaryPlus() {
-    children.add(TextElement(this))
-  }
-}
-
 // impl
 
 fun html(init: HTML.() -> Unit): HTML {
@@ -81,23 +78,27 @@ fun html(init: HTML.() -> Unit): HTML {
   return html
 }
 
-class HTML : TagWithText("html") {
+class HTML : Tag("html") {
   fun head(init: Head.() -> Unit) = initTag(Head(), init)
 
   fun body(init: Body.() -> Unit) = initTag(Body(), init)
 }
 
-class Head : TagWithText("head") {
+class Head : Tag("head") {
+  @Deprecated(message = "wrong scope", level = DeprecationLevel.ERROR)
+  fun head(init: Head.() -> Unit) = initTag(Head(), init)
+
   fun title(init: Title.() -> Unit) = initTag(Title(), init)
 }
 
-class Title : TagWithText("title")
+class Title : Tag("title")
 
-abstract class BodyTag(name: String) : TagWithText(name) {
+abstract class BodyTag(name: String) : Tag(name) {
   fun p(init: P.() -> Unit) = initTag(P(), init)
   fun ul(init: UL.() -> Unit) = initTag(UL(), init)
   fun a(href: String, init: A.() -> Unit) {
-    val a = initTag(A(), init)
+    val a = A()
+    initTag(a, init)
     a.href = href
   }
 }

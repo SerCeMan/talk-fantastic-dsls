@@ -9,6 +9,14 @@ interface Write {
   fun write(a: Any?)
 }
 
+class Mutable(var m: Any?) {
+  fun write(p: Path, a: Any?) {
+    m = p.assocIn(m, a)
+  }
+
+  fun read(p: Path) = p.getIn(m)
+}
+
 class WriterCursor(val m: Mutable, val path: Path) : Focus<Write> {
   override fun narrow(k: String): Focus<Write> = WriterCursor(m, path.append(k))
 
@@ -17,6 +25,14 @@ class WriterCursor(val m: Mutable, val path: Path) : Focus<Write> {
     override fun read(): Any? = m.read(path)
   }
 }
+
+fun <T, M> Cursor<M, Read<T>>.update(update: Cursor<M, Write>.() -> Unit): Domain<T> {
+  val m = Mutable(f.op.domain.root)
+  Cursor<M, Write>(WriterCursor(m, f.op.path)).update()
+  return Domain(m.read(Path.EMPTY) as PMap)
+}
+
+fun <M> domain(f: Cursor<M, Write>.() -> Unit) = Domain<M>().cursor.update(f)
 
 fun Write.init(k: KClass<*>) {
   if (read() == null) {
@@ -27,12 +43,6 @@ fun Write.init(k: KClass<*>) {
   }
 }
 
-fun <T, M> Cursor<M, Read<T>>.update(update: Cursor<M, Write>.() -> Unit): Domain<T> {
-  val m = Mutable(f.op.domain.root)
-  Cursor<M, Write>(WriterCursor(m, f.op.path)).update()
-  return Domain(m.read(Path.EMPTY) as PMap)
-}
-
 operator inline fun <reified T> Cursor<T, Write>.invoke(init: Cursor<T, Write>.() -> Unit): Unit {
   f.op.init(T::class)
   init()
@@ -40,12 +50,4 @@ operator inline fun <reified T> Cursor<T, Write>.invoke(init: Cursor<T, Write>.(
 
 infix fun <T> Cursor<Leaf<T>, Write>.set(t: T): Unit {
   f.op.write(t)
-}
-
-class Mutable(var m: Any?) {
-  fun write(p: Path, a: Any?) {
-    m = p.assocIn(m, a)
-  }
-
-  fun read(p: Path) = p.getIn(m)
 }

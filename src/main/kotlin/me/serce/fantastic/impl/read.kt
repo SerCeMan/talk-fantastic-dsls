@@ -22,7 +22,5 @@ inline val <reified V, T> Cursor<Leaf<V>, Read<T>>.value: V
 
 class Domain<out T>(val root: PMap = PHashMap.EMPTY)
 
-fun <M> domain(f: Cursor<M, Write>.() -> Unit) = Domain<M>().cursor.update(f)
-
 val <T> Domain<T>.cursor: Cursor<T, Read<T>>
   get() = Cursor(Reader(Path.EMPTY, this))

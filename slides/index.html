@@ -98,6 +98,27 @@
         </section>
 
         <section>
+            <h2>Calling conventions</h2>
+            <pre class="fragment fade-in" data-fragment-index="1" style="padding-bottom: 30px"><code data-trim class="kotlin hljs">
+fun dotimes(n: Int, f: () -> Unit) {
+    for (i in 0..n-1) {
+        f()
+    }
+}
+            </code></pre>
+            <pre class="fragment fade-in" data-fragment-index="2" style="padding-bottom: 30px"><code class="kotlin hljs" data-trim>
+dotimes(5, {
+    println("Hello")
+})
+            </code></pre>
+            <pre class="fragment fade-in" data-fragment-index="3"><code class="java hljs" data-trim>
+dotimes(5) {
+    println("Hello")
+}
+            </code></pre>
+        </section>
+
+        <section>
             <h2>Extension functions</h2>
             <table width="100%">
                 <tr>
@@ -120,24 +141,24 @@
         </section>
 
 
-        <section>
-            <h2>Extension functions</h2>
-            <table width="100%">
-                <tr>
-                    <td>
-                        <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
-@@include('ext2/f1.kts')
-                        </code></pre>
-                    </td>
-                    <td  class="fragment fade-in">
-                        <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
-@@include('ext2/f2.jv')
-                        </code></pre>
-                    </td>
-                </tr>
-            </table>
+        <!--<section>-->
+            <!--<h2>Extension functions</h2>-->
+            <!--<table width="100%">-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>-->
+<!--@@include('ext2/f1.kts')-->
+                        <!--</code></pre>-->
+                    <!--</td>-->
+                    <!--<td  class="fragment fade-in">-->
+                        <!--<pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>-->
+<!--@@include('ext2/f2.jv')-->
+                        <!--</code></pre>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</table>-->
 
-        </section>
+        <!--</section>-->
 
 
         <section style="padding: 0">
@@ -406,7 +427,7 @@ val stansTrs2 = trs.copy(
             <table width="100%">
                 <tr>
                     <td style="width: 50%">
-                        <pre style="padding-bottom: 30px; font-size: 16px"><code class="kotlin hljs" data-trim>
+                        <pre style="padding-bottom: 30px; font-size: 16px"><code data-trim>
 interface Transaction
 val &lt;F&gt; Cursor&lt;Transaction, F&gt;.payment by Node&lt;Payment&gt;()
 val &lt;F&gt; Cursor&lt;Transaction, F&gt;.parts by Node&lt;Parts&gt;()
@@ -473,7 +494,7 @@ fun Collection&lt;Int&gt;.toIntArray(): IntArray {
 
 
         <section data-background-image="img/niffler.jpg">
-            <h2>Delegates</h2>
+            <h2>Delegated Properties</h2>
             <table width="100%">
                 <tr>
                     <td>
@@ -554,8 +575,6 @@ val result = (5 == 2 + 3) % 1 / 2 // 1
                 </li>
             </ul>
         </section>
-
-
     </div>
 
 </div>

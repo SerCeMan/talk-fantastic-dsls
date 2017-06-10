@@ -20,12 +20,11 @@ val <F> Cursor<Person, F>.id by Leaf<Int>()
 val <F> Cursor<Person, F>.name by Leaf<String>()
 
 
-
 fun main(args: Array<String>) {
   val trans = domain<Transaction> {
     (payment) {
       currency.set("AUD")
-      amount.set("15")
+      amount.set(12)
     }
     (parts) {
       (from) {
@@ -38,6 +37,8 @@ fun main(args: Array<String>) {
       }
     }
   }
+
+  trans.cursor.parts.from.name
 
   assertEquals("alex", trans.cursor.parts.from.name.value)
 

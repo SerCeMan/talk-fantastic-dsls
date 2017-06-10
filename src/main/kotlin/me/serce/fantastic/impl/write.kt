@@ -48,6 +48,6 @@ operator inline fun <reified T> Cursor<T, Write>.invoke(init: Cursor<T, Write>.(
   init()
 }
 
-infix fun <T> Cursor<Leaf<T>, Write>.set(t: T): Unit {
+fun <T> Cursor<Leaf<T>, Write>.set(t: T): Unit {
   f.op.write(t)
 }

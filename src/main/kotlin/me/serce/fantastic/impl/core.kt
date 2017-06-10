@@ -9,13 +9,13 @@ interface Focus<out Op> {
 
 class Cursor<out T, out Op>(val f: Focus<Op>)
 
-open class Leaf<out V> {
+open class Leaf<V> {
   open operator fun <Op> getValue(ref: Cursor<*, Op>, property: KProperty<*>): Cursor<Leaf<V>, Op> {
     return Cursor(ref.f.narrow(property.name))
   }
 }
 
-open class Node<out T> {
+open class Node<T> {
   open operator fun <Op> getValue(ref: Cursor<*, Op>, property: KProperty<*>): Cursor<T, Op> {
     return Cursor(ref.f.narrow(property.name))
   }

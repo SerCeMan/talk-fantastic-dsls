@@ -52,11 +52,7 @@
             </div>
         </section>
 
-        <section>
-            <div style="position: absolute; font-size: 180px; color: red">
-                <b>YOU<nbsp/>KNOW WHO</b><br>
-                <b>I AM</b>
-            </div>
+        <section data-background-image="img/4.png">
             <style>
                 img {
                     background: none !important;
@@ -70,10 +66,15 @@
                 <br><a href="http://github.com/SerCeMan">GitHub @SerCeMan</a>
                 <br><a href="http://twitter.com/SerCeMan">Twitter @SerCeMan</a>
                 <br>
-                <img src="img/kotlin.png" height="140px">
+                <img src="img/kotlin.png" height="100px">
             </p>
 
         </section>
+
+        <section data-background-image="img/5.png">
+            <h1>Warning</h1>
+        </section>
+
 
         <section data-background-image="img/2.jpg">
             <h1>What is DSL</h1>
@@ -108,12 +109,17 @@ fun dotimes(n: Int, f: () -> Unit) {
             </code></pre>
             <pre class="fragment fade-in" data-fragment-index="2" style="padding-bottom: 30px"><code class="kotlin hljs" data-trim>
 dotimes(5, {
-    println("Hello")
+    println("Hello, Kotlin!")
 })
             </code></pre>
-            <pre class="fragment fade-in" data-fragment-index="3"><code class="java hljs" data-trim>
+            <pre class="fragment fade-in" data-fragment-index="3" style="padding-bottom: 30px"><code class="java hljs" data-trim>
 dotimes(5) {
-    println("Hello")
+    println("Hello, Kotlin!")
+}
+            </code></pre>
+            <pre class="fragment fade-in" data-fragment-index="4"><code class="java hljs" data-trim>
+do5times {
+    println("Hello, Kotlin!")
 }
             </code></pre>
         </section>
@@ -205,21 +211,16 @@ object Project : Project({
 
   val vcsRoot = GitVcsRoot({
     uuid = "my_vcs_root_id"
-    name = "Example of DSL VCS Root"
     url = "..."
   })
   buildType {
-    uuid = "my_build_type_id"
-    extId = "ExampleOfDSL_Build"
     name = "Build"
     buildNumberPattern = "%build.counter%"
     vcs {
       root(vcsRoot)
     }
-    steps {
-      maven {
-        goals = "clean test"
-      }
+    maven {
+      goals = "clean test"
     }
   }
 })
@@ -244,12 +245,6 @@ android {
         minSdkVersion(15)
 
         applicationId = "com.example.kotlingradle"
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
     }
 }
 
@@ -404,7 +399,7 @@ val stansTrs2 = trs.copy(
 
 
         <section>
-            <h2>Persistent DS</h2>
+            <h2>Persistent Data Structures</h2>
             <table width="100%">
                 <tr>
                     <td style="width: 50%">
@@ -451,7 +446,7 @@ val &lt;F&gt; Cursor&lt;Person, F&gt;.name by Leaf&lt;String&gt;()
 val trans = domain&lt;Transaction&gt; {
   (payment) {
     currency.set(&quot;AUD&quot;)
-    amount.set(&quot;15&quot;)
+    amount.set(15)
   }
   (parts) {
     (from) {

@@ -21,7 +21,9 @@ inline val <reified V, T> Cursor<Leaf<V>, Read<T>>.value: V
   get() = f.op.path.getIn(f.op.domain.root) as V
 
 
-class Domain<out T>(val root: PMap = PHashMap.EMPTY)
+class Domain<out T>(val root: PMap = PHashMap.EMPTY) {
+  override fun toString() = root.toString()
+}
 
 val <T> Domain<T>.cursor: Cursor<T, Read<T>>
   get() = Cursor(Reader(Path.EMPTY, this))

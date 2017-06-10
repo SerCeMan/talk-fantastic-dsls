@@ -3,13 +3,14 @@ import kotlin.reflect.KProperty
 class Niffler
 
 class MyWorld {
-  val niffler: Niffler? by DI()
+  val niffler: Niffler by Provider()
 }
 
-class DI {
+class Provider {
   operator fun getValue(
     ref: MyWorld,
-    prop: KProperty<*>): Niffler? {
+    prop: KProperty<*>
+  ): Niffler {
     return Niffler()
   }
 }

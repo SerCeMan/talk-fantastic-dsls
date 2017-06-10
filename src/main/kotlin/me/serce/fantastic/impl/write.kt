@@ -9,7 +9,7 @@ interface Write {
   fun write(a: Any?)
 }
 
-class Mutable(var m: Any?) {
+class Mutable(var m: PMap) {
   fun write(p: Path, a: Any?) {
     m = p.assocIn(m, a)
   }

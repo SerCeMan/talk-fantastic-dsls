@@ -3,10 +3,10 @@ static class MyWorld {
     new KProperty[] {
       Reflection.property1(/*🔮*/)
     };
-  private final DI niffler$;
+  private final Provider niffler$;
 
   public MyWorld() {
-    this.niffler$ = new DI();
+    this.niffler$ = new Provider();
   }
 
   public Creature getNiffler() {

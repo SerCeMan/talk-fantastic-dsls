@@ -175,6 +175,22 @@ do5times {
                         <pre><code class="kotlin hljs" data-trim>
 @@include('ext3/f1.kts')
                         </code></pre>
+                        <pre class="fragment fade-in"><code class="java hljs" data-trim>
+fun on(cmd: String, f: Droid.() -> Unit) {
+// ...
+  droid.f()
+// ...
+}
+
+//
+
+on("back") {
+  moveLeft()
+  if (peopleAround) {
+    fire(gun)
+  }
+}
+                        </code></pre>
                     </td>
                     <td class="code">
                         <pre class="fragment fade-in"><code class="java hljs" data-trim>

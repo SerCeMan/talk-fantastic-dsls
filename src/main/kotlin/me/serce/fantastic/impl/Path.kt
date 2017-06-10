@@ -11,5 +11,5 @@ data class Path(private val v: APersistentVector) {
 
   fun append(a: String): Path = Path(v.cons(a) as APersistentVector)
   fun getIn(model: Any?): Any? = getIn.invokeStatic(model, v)
-  fun assocIn(m: Any?, a: Any?): Any? = assocIn.invokeStatic(m, v, a)
+  fun assocIn(m: Any?, a: Any?) = assocIn.invokeStatic(m, v, a) as APersistentMap
 }

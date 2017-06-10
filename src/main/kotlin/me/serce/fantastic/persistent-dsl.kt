@@ -38,8 +38,6 @@ fun main(args: Array<String>) {
     }
   }
 
-  trans.cursor.parts.from.name
-
   assertEquals("alex", trans.cursor.parts.from.name.value)
 
   val trans2 = trans.cursor.parts.from.update {

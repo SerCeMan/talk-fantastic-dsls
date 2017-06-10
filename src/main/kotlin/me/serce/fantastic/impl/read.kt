@@ -20,6 +20,7 @@ class Reader<out T>(val p: Path, val dm: Domain<T>) : Focus<Read<T>> {
 inline val <reified V, T> Cursor<Leaf<V>, Read<T>>.value: V
   get() = f.op.path.getIn(f.op.domain.root) as V
 
+
 class Domain<out T>(val root: PMap = PHashMap.EMPTY)
 
 val <T> Domain<T>.cursor: Cursor<T, Read<T>>

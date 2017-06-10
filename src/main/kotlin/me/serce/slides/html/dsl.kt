@@ -9,7 +9,7 @@ fun main(args: Array<String>) {
         p {
           +"a line about Kotlin"
         }
-        a(href = "jetbrains.com/kotlin") {
+        a(href = "http://jetbrains.com/kotlin") {
           +"Kotlin"
         }
         p {
@@ -55,16 +55,14 @@ abstract class Tag(val name: String) : Element {
     children.add(tag)
   }
 
+  operator fun String.unaryPlus() {
+    children.add(TextElement(this))
+  }
+
   override fun toString(): String {
     val builder = StringBuilder()
     render(builder, "")
     return builder.toString()
-  }
-}
-
-abstract class TagWithText(name: String) : Tag(name) {
-  operator fun String.unaryPlus() {
-    children.add(TextElement(this))
   }
 }
 
@@ -76,19 +74,19 @@ fun html(init: HTML.() -> Unit): HTML {
   return html
 }
 
-class HTML : TagWithText("html") {
+class HTML : Tag("html") {
   fun head(init: Head.() -> Unit) = initTag(Head(), init)
 
   fun body(init: Body.() -> Unit) = initTag(Body(), init)
 }
 
-class Head : TagWithText("head") {
+class Head : Tag("head") {
   fun title(init: Title.() -> Unit) = initTag(Title(), init)
 }
 
-class Title : TagWithText("title")
+class Title : Tag("title")
 
-abstract class BodyTag(name: String) : TagWithText(name) {
+abstract class BodyTag(name: String) : Tag(name) {
   fun p(init: P.() -> Unit) = initTag(P(), init)
   fun ul(init: UL.() -> Unit) = initTag(UL(), init)
   fun a(href: String, init: A.() -> Unit) {

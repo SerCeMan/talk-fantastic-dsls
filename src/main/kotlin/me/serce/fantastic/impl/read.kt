@@ -8,8 +8,8 @@ interface Read<out M> {
   val domain: Domain<M>
 }
 
-class Reader<out T>(val p: Path, val dm: Domain<T>) : Focus<Read<T>> {
-  override fun narrow(k: String): Focus<Read<T>> = Reader(p.append(k), dm)
+class ReadFocus<out T>(val p: Path, val dm: Domain<T>) : Focus<Read<T>> {
+  override fun narrow(k: String): Focus<Read<T>> = ReadFocus(p.append(k), dm)
 
   override val op: Read<T> = object : Read<T> {
     override val domain: Domain<T> = dm
@@ -26,4 +26,4 @@ class Domain<out T>(val root: PMap = PHashMap.EMPTY) {
 }
 
 val <T> Domain<T>.cursor: Cursor<T, Read<T>>
-  get() = Cursor(Reader(Path.EMPTY, this))
+  get() = Cursor(ReadFocus(Path.EMPTY, this))

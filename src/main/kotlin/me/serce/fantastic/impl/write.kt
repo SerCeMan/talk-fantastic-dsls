@@ -17,8 +17,8 @@ class Mutable(var m: PMap) {
   fun read(p: Path) = p.getIn(m)
 }
 
-class WriterCursor(val m: Mutable, val path: Path) : Focus<Write> {
-  override fun narrow(k: String): Focus<Write> = WriterCursor(m, path.append(k))
+class WriteFocus(val m: Mutable, val path: Path) : Focus<Write> {
+  override fun narrow(k: String): Focus<Write> = WriteFocus(m, path.append(k))
 
   override val op: Write = object : Write {
     override fun write(a: Any?) = m.write(path, a)
@@ -28,7 +28,7 @@ class WriterCursor(val m: Mutable, val path: Path) : Focus<Write> {
 
 fun <T, M> Cursor<M, Read<T>>.update(update: Cursor<M, Write>.() -> Unit): Domain<T> {
   val m = Mutable(f.op.domain.root)
-  Cursor<M, Write>(WriterCursor(m, f.op.path)).update()
+  Cursor<M, Write>(WriteFocus(m, f.op.path)).update()
   return Domain(m.read(Path.EMPTY) as PMap)
 }
 

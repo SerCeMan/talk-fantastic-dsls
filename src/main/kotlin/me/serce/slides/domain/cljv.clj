@@ -6,6 +6,3 @@
                    :to   {:id   1
                           :name "ben"}}})
 
-
-; update
-(def ts2 (assoc-in ts [:parts :from :name] "john"))

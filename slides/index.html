@@ -405,6 +405,10 @@ val stansTrs2 = trs.copy(
                         <pre><code style="overflow: hidden; width: 100%" class="clojure hljs" data-trim>
 @@include('domain/cljv.clj')
                         </code></pre>
+                        <pre><code style="overflow: hidden; width: 100%" class="clojure hljs" data-trim>
+; update
+(def ts2 (assoc-in ts [:parts :from :name] "john"))
+                        </code></pre>
                     </td>
                     <td style="width: 50%; vertical-align: top" class="code">
                         <img src="img/kotlin_domain_2.png">
@@ -428,6 +432,39 @@ val stansTrs2 = trs.copy(
 @@include('domain/clj2.kt')
                         </code>
                         <img src="img/kotlin_domain_2.png"></pre>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+
+        <section>
+            <h2>Extension function on generic types</h2>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+fun Collection&lt;Int&gt;.toIntArray(): IntArray {
+  val result = IntArray(size)
+  var index = 0
+  for (element in this)
+    result[index++] = element
+  return result
+}
+            </code></pre>
+        </section>
+
+
+        <section data-background-image="img/niffler.jpg">
+            <h2>Delegated Properties</h2>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+@@include('del/f1.kts')
+                        </code></pre>
+                    </td>
+                    <td class="code">
+                        <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
+@@include('del/f2.jv')
+                        </code></pre>
                     </td>
                 </tr>
             </table>
@@ -485,40 +522,6 @@ val trans2 = trans.cursor.parts.from.update {
                     </td>
                 </tr>
 
-            </table>
-        </section>
-
-
-
-        <section>
-            <h2>Extension function on generic types</h2>
-            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
-fun Collection&lt;Int&gt;.toIntArray(): IntArray {
-  val result = IntArray(size)
-  var index = 0
-  for (element in this)
-    result[index++] = element
-  return result
-}
-            </code></pre>
-        </section>
-
-
-        <section data-background-image="img/niffler.jpg">
-            <h2>Delegated Properties</h2>
-            <table width="100%">
-                <tr>
-                    <td>
-                        <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
-@@include('del/f1.kts')
-                        </code></pre>
-                    </td>
-                    <td class="code">
-                        <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
-@@include('del/f2.jv')
-                        </code></pre>
-                    </td>
-                </tr>
             </table>
         </section>
 

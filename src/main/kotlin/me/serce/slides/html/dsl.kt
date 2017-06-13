@@ -50,13 +50,13 @@ abstract class Tag(val name: String) : Element {
     return attributes.map { (k, v) -> " $k=\"$v\"" }.joinToString("")
   }
 
+  operator fun String.unaryPlus() {
+    children.add(TextElement(this))
+  }
+
   protected fun <T : Element> initTag(tag: T, init: T.() -> Unit) {
     tag.init()
     children.add(tag)
-  }
-
-  operator fun String.unaryPlus() {
-    children.add(TextElement(this))
   }
 
   override fun toString(): String {

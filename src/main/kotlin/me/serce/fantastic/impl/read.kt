@@ -3,12 +3,12 @@ package me.serce.fantastic.impl
 import clojure.lang.APersistentMap as PMap
 import clojure.lang.PersistentHashMap as PHashMap
 
-interface Read<out M> {
+interface Read<M> {
   val path: Path
   val domain: Domain<M>
 }
 
-class ReadFocus<out T>(val p: Path, val dm: Domain<T>) : Focus<Read<T>> {
+class ReadFocus<T>(val p: Path, val dm: Domain<T>) : Focus<Read<T>> {
   override fun narrow(k: String): Focus<Read<T>> = ReadFocus(p.append(k), dm)
 
   override val op: Read<T> = object : Read<T> {

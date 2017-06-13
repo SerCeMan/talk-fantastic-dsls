@@ -2,12 +2,12 @@ package me.serce.fantastic.impl
 
 import kotlin.reflect.KProperty
 
-interface Focus<out Op> {
+interface Focus<Op> {
   fun narrow(k: String): Focus<Op>
   val op: Op
 }
 
-class Cursor<out T, out Op>(val f: Focus<Op>)
+class Cursor<T, Op>(val f: Focus<Op>)
 
 class Node<T> {
   operator fun <Op> getValue(ref: Cursor<*, Op>, property: KProperty<*>): Cursor<T, Op> {

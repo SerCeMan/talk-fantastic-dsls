@@ -168,7 +168,7 @@ do5times {
 
 
         <section style="padding: 0">
-            <h2>Extension functions</h2>
+            <h2>droid DSL</h2>
             <table width="100%">
                 <tr>
                     <td>
@@ -271,33 +271,6 @@ dependencies {
 </code></pre>
         </section>
 
-
-        <section>
-            <h2>Anko</h2>
-            <a href="https://github.com/Kotlin/anko">github.com/Kotlin/anko</a>
-            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
-override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    verticalLayout {
-        padding = dip(30)
-        editText {
-            hint = "Name"
-            textSize = 24f
-        }
-        editText {
-            hint = "Password"
-            textSize = 24f
-        }
-        button("Login") {
-            textSize = 26f
-        }
-    }
-}
-            </code></pre>
-        </section>
-
-
         <section>
             <h2>Spek</h2>
             <a href="http://spekframework.org">spekframework.org</a>
@@ -323,6 +296,33 @@ object SimpleSpec: Spek({
         }
     }
 })
+            </code></pre>
+        </section>
+
+
+
+        <section>
+            <h2>Anko</h2>
+            <a href="https://github.com/Kotlin/anko">github.com/Kotlin/anko</a>
+            <pre><code style="overflow: hidden; width: 100%" class="kotlin hljs" data-trim>
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    verticalLayout {
+        padding = dip(30)
+        editText {
+            hint = "Name"
+            textSize = 24f
+        }
+        editText {
+            hint = "Password"
+            textSize = 24f
+        }
+        button("Login") {
+            textSize = 26f
+        }
+    }
+}
             </code></pre>
         </section>
 
@@ -401,11 +401,11 @@ val stansTrs2 = trs.copy(
             <h2>Clojure way</h2>
             <table width="100%">
                 <tr>
-                    <td style="width: 50%">
+                    <td style="width: 55%">
                         <pre><code style="overflow: hidden; width: 100%" class="clojure hljs" data-trim>
 @@include('domain/cljv.clj')
                         </code></pre>
-                        <pre><code style="overflow: hidden; width: 100%" class="clojure hljs" data-trim>
+                        <pre class="fragment fade-in"><code style="overflow: hidden; width: 100%" class="clojure hljs" data-trim>
 ; update
 (def ts2 (assoc-in ts [:parts :from :name] "john"))
                         </code></pre>
@@ -462,7 +462,7 @@ fun Collection&lt;Int&gt;.toIntArray(): IntArray {
                         </code></pre>
                     </td>
                     <td class="code">
-                        <pre><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
+                        <pre class="fragment fade-in"><code style="overflow: hidden; width: 100%" class="java hljs" data-trim>
 @@include('del/f2.jv')
                         </code></pre>
                     </td>

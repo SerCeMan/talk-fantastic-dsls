@@ -9,7 +9,7 @@ val result: HTML =
         +"a line about Kotlin"
         +"another line"
       }
-      a(href = "jetbrains.com/kotlin") {
+      a(href = "http://jetbrains.com/kotlin") {
         +"Kotlin"
       }
       p {

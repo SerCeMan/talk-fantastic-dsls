@@ -7,7 +7,6 @@ val result: HTML =
     body {
       p {
         +"a line about Kotlin"
-        +"another line"
       }
       a(href = "http://jetbrains.com/kotlin") {
         +"Kotlin"
